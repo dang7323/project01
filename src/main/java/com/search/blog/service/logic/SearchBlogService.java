@@ -8,10 +8,14 @@ import java.util.List;
 
 @Service
 public interface SearchBlogService {
-    List<SearchBlogOutso> getSearchBlog(SearchBlogInso searchBlogInso);
+    List<SearchBlogOutso> getSearchKakaoBlog(SearchBlogInso searchBlogInso);
+
+    List<SearchBlogOutso> getSearchNaverBlog(SearchBlogInso searchBlogInso);
 
     void saveKeyword(SearchBlogInso searchBlogInso);
 
-    List<SearchBlogOutso> fromJSONtoSearchBlogOutsos(String result);
+    List<SearchBlogOutso> fromKakaoJSONtoSearchBlogOutsos(String result);
+
+    List<SearchBlogOutso> fromNaverJSONtoSearchBlogOutsos(String result);
 
 }
