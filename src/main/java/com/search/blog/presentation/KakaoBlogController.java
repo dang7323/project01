@@ -36,8 +36,8 @@ public class KakaoBlogController {
         List<BlogResponse> searchBlogRespons;
         try {// Kakao Api 호출
             searchBlogRespons = toSearchBlogResponses(kakaoBlogService.getSearchKakaoBlog(toSearchBlogInso(kakaoBlogRequest)));
-        } catch (ResourceAccessException e){ // Timeout 발생시 Naver api 호출
-            log.info("KaKaoBlog Search TimeOut!! Transfer to NaverBlog Search!!");
+        } catch (RuntimeException e){
+            log.info("Kakao generates exception. Transfer to Naver!!");
             searchBlogRespons = toSearchBlogResponses(naverBlogService.getSearchNaverBlog(toSearchBlogInso(kakaoBlogRequest)));
         } finally {
             // DB에 keyword 저장

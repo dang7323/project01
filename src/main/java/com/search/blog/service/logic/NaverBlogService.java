@@ -11,5 +11,5 @@ public interface NaverBlogService {
 
     List<BlogOutso> getSearchNaverBlog(BlogInso blogInso);
 
-    List<BlogOutso> fromNaverJSONtoSearchBlogOutsos(String result);
+    List<BlogOutso> toBlogOutsos(String result);
 }

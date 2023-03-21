@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.ResourceAccessException;
 
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +35,8 @@ public class NaverBlogController {
         List<BlogResponse> searchBlogRespons;
         try {// Naver Api 호출
             searchBlogRespons = toSearchBlogResponses(naverBlogService.getSearchNaverBlog(toSearchBlogInso(naverBlogRequest)));
-        } catch (ResourceAccessException e){ // Timeout 발생시 Naver api 호출
-            log.info("Naver Search TimeOut!! Transfer to NaverBlog Search!!");
-            // naverReq -> kakaoReq 변형
+        } catch (RuntimeException e){
+            log.info("Naver generates exception. Transfer to Kakao!!");
             searchBlogRespons = toSearchBlogResponses(kakaoBlogService.getSearchKakaoBlog(toSearchBlogInso(naverBlogRequest)));
         } finally {
             // DB에 keyword 저장

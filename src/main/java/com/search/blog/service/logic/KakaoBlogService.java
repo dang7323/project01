@@ -10,5 +10,5 @@ import java.util.List;
 public interface KakaoBlogService {
     List<BlogOutso> getSearchKakaoBlog(BlogInso blogInso);
 
-    List<BlogOutso> fromKakaoJSONtoSearchBlogOutsos(String result);
+    List<BlogOutso> toBlogOutsos(String result);
 }

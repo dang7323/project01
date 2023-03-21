@@ -54,13 +54,13 @@ public class KakaoBlogServiceImpl implements KakaoBlogService {
 
         ResponseEntity<String> result = restTemplate.exchange(req, String.class);
         log.info("Kakao Api result : {}", result.toString());
-        List<BlogOutso> searchBlogServiceOuts = fromKakaoJSONtoSearchBlogOutsos(result.getBody());
+        List<BlogOutso> searchBlogServiceOuts = toBlogOutsos(result.getBody());
 
         return searchBlogServiceOuts;
     }
 
     @Override
-    public List<BlogOutso> fromKakaoJSONtoSearchBlogOutsos(String result) {
+    public List<BlogOutso> toBlogOutsos(String result) {
         JsonObject jsonObj = (JsonObject) new JsonParser().parse(result);
         JsonArray jsonArr = (JsonArray) jsonObj.get("documents");
         List<BlogOutso> searchBlogServiceOuts = new ArrayList<>();

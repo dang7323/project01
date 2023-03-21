@@ -61,7 +61,7 @@ public class NaverBlogServiceImpl implements NaverBlogService {
 
         log.info("Naver Api result : {}", responseBody);
 
-        List<BlogOutso> searchBlogServiceOuts = fromNaverJSONtoSearchBlogOutsos(responseBody);
+        List<BlogOutso> searchBlogServiceOuts = toBlogOutsos(responseBody);
 
         return searchBlogServiceOuts;
     }
@@ -69,6 +69,10 @@ public class NaverBlogServiceImpl implements NaverBlogService {
     private static String get(String apiUrl, Map<String, String> requestHeaders) {
         HttpURLConnection con = connect(apiUrl);
         try {
+            // TIMEOUT
+            con.setConnectTimeout(NAVER_TIME_OUT_MILLIS);
+            con.setReadTimeout(NAVER_TIME_OUT_MILLIS);
+
             con.setRequestMethod("GET");
             for (Map.Entry<String, String> header : requestHeaders.entrySet()) {
                 con.setRequestProperty(header.getKey(), header.getValue());
@@ -113,7 +117,6 @@ public class NaverBlogServiceImpl implements NaverBlogService {
                 responseBody.append(line);
             }
 
-
             return responseBody.toString();
         } catch (IOException e) {
             throw new RuntimeException("API 응답을 읽는 데 실패했습니다.", e);
@@ -122,7 +125,7 @@ public class NaverBlogServiceImpl implements NaverBlogService {
 
 
     @Override
-    public List<BlogOutso> fromNaverJSONtoSearchBlogOutsos(String result) {
+    public List<BlogOutso> toBlogOutsos(String result) {
         JsonObject jsonObj = (JsonObject) new JsonParser().parse(result);
         JsonArray jsonArr = (JsonArray) jsonObj.get("items");
         List<BlogOutso> searchBlogServiceOuts = new ArrayList<>();
