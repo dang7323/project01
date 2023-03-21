@@ -1,36 +1,52 @@
-### 과제 내용
-
--  오픈 API를 이용하여 "블로그 검색 서비스"를 만들려고 합니다.
-- "과제 기능 요구 사항"을 구현해 주시기 바랍니다.
-  요구 사항 및 제약사항이 충족되지 않은 결과물은 코드레벨 평가를 진행하지 않습니다.
-- 아래의 "코드레벨 평가항목"으로 코드를 평가합니다.
-- "블로그 검색 서비스"의 API 명세를 제출해주세요.
-
-### 과제 기능 요구사항
-
-1. 블로그 검색
-- 키워드를 통해 블로그를 검색할 수 있어야 합니다.
-- 검색 결과에서 Sorting(정확도순, 최신순) 기능을 지원해야 합니다.
-- 검색 결과는 Pagination 형태로 제공해야 합니다.
-- 검색 소스는 카카오 API의 키워드로 블로그 검색(https://developers.kakao.com/docs/latest/ko/daum-search/dev-guide#search-blog)을 활용합니다.
-- 추후 카카오 API 이외에 새로운 검색 소스가 추가될 수 있음을 고려해야 합니다.
-
-2. 인기 검색어 목록
-- 사용자들이 많이 검색한 순서대로, 최대 10개의 검색 키워드를 제공합니다.
-- 검색어 별로 검색된 횟수도 함께 표기해 주세요.
-* 주어진 요구사항 이외의 추가 기능 구현에 대한 제약은 없으며, 새롭게 구현한 기능이 있을 경우 README 파일에 기재 바랍니다.
-
-### 제약사항
-- JAVA 11 이상 또는 Kotlin 사용
-- Spring Boot 사용
-- Gradle 기반의 프로젝트
-- 블로그 검색 API는 서버(백엔드)에서 연동 처리
-- DB는 인메모리 DB(예: h2)를 사용하며 DB 컨트롤은 JPA로 구현
-- 외부 라이브러리 및 오픈소스 사용 가능 (단, README 파일에 사용한 오픈 소스와 사용 목적을 명시해 주세요)
+## Jar 다운로드 링크
+> https://drive.google.com/file/d/1U3_Ya30oeRZXbYIF2HgMV9RFIrRZyUH6/view?usp=sharing
 
 ## 빌드
 > gradlew build
 
 ## 실행
 > java -jar build/libs/demo-0.0.1-SNAPSHOT.jar
+> 
+## 새롭게 구현한 기능
+네이버 블로그 검색 구현
+네이버 블로그 검색시 장애 발생하면 카카오 블로그로 검색
+카카오 블로그 검색시 장애 발생하면 네이버 클로그로 검색
+
+## API 구조
+
+#### kakao blog controller
+> GET /kakao (카카오 블로그 검색)
+##### request body
+- keyword : 검색을 원하는 질의어
+- sort : 결과 문서 정렬 방식(accuracy-정확도 | recency-최신순, 기본값 accuracy)
+- size : 한 페이지에 보여질 문서 수 
+- page : 결과 페이지 번호
+#### response body
+- title : 제목
+- contents : 컨텐츠
+- blogname : 블로그 이름
+- thumbnail : 썸네일
+- datetime : 게시물 생성일
+
+#### naver blog controller
+> GET /naver (네이버 블로그 검색)
+#### request body
+- keyword : 검색을 원하는 질의어
+- sort : 결과 문서 정렬 방식(sim-정확도 | date-최신순, 기본값 sim)
+- start : 결과 페이지 번호
+- display : 한 페이지에 보여질 문서 수
+#### response body
+- title : 제목
+- contents : 컨텐츠
+- blogname : 블로그 이름
+- thumbnail : 썸네일
+- datetime : 게시물 생성일
+
+#### trend controller
+> GET /trend (검색 트렌드 조회)
+
+#### response body
+- keyword : 검색어
+- count : 검색 횟수
+
 
