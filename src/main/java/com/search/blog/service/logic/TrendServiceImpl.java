@@ -1,9 +1,9 @@
 package com.search.blog.service.logic;
 
-import com.search.blog.persistence.Entity.SearchEntity;
-import com.search.blog.persistence.repository.SearchTrendCriteria;
-import com.search.blog.persistence.repository.SearchRepository;
-import com.search.blog.service.logic.so.in.SearchBlogInso;
+import com.search.blog.persistence.Entity.TrendEntity;
+import com.search.blog.persistence.repository.TrendRepository;
+import com.search.blog.persistence.repository.TrendCriteria;
+import com.search.blog.service.logic.so.in.BlogInso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,18 +13,18 @@ import java.util.List;
 public class TrendServiceImpl implements TrendService {
 
     @Autowired
-    private SearchRepository searchRepository;
+    private TrendRepository trendRepository;
 
     @Override
-    public List<SearchTrendCriteria> getSearchTrendCnt() {
-        List<SearchTrendCriteria> searchTrendCriterias = searchRepository.countSearchTrend();
-        return searchTrendCriterias;
+    public List<TrendCriteria> getSearchTrendCnt() {
+        List<TrendCriteria> trendCriteria = trendRepository.countSearchTrend();
+        return trendCriteria;
     }
 
     @Override
-    public void saveKeyword(SearchBlogInso searchBlogInso) {
-        SearchEntity search = new SearchEntity();
-        search.setKeyword(searchBlogInso.getKeyword());
-        searchRepository.save(search);
+    public void saveKeyword(BlogInso blogInso) {
+        TrendEntity search = new TrendEntity();
+        search.setKeyword(blogInso.getKeyword());
+        trendRepository.save(search);
     }
 }

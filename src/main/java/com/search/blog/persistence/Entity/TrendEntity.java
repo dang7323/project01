@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "SEARCH")
-public class SearchEntity extends BaseTimeEntity {
+@Table(name = "TREND")
+public class TrendEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

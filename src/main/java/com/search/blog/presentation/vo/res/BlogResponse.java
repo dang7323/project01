@@ -1,5 +1,6 @@
-package com.search.blog.service.logic.so.out;
+package com.search.blog.presentation.vo.res;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class SearchBlogOutso {
+@Builder
+public class BlogResponse {
     private String title;
     private String contents;
     private String url;

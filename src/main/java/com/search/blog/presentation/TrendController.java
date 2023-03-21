@@ -1,8 +1,8 @@
 package com.search.blog.presentation;
 
 
-import com.search.blog.persistence.repository.SearchTrendCriteria;
-import com.search.blog.presentation.vo.res.SearchTrendResponse;
+import com.search.blog.persistence.repository.TrendCriteria;
+import com.search.blog.presentation.vo.res.TrendResponse;
 import com.search.blog.service.logic.TrendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,19 +18,19 @@ public class TrendController {
     TrendService trendService;
 
     @GetMapping("/trend")
-    public List<SearchTrendResponse> searchtrend() {
-        List<SearchTrendResponse> searchTrendRespons = toSearchTrendResponses(trendService.getSearchTrendCnt());
+    public List<TrendResponse> searchtrend() {
+        List<TrendResponse> searchTrendRespons = toSearchTrendResponses(trendService.getSearchTrendCnt());
         return searchTrendRespons;
     }
 
-    private List<SearchTrendResponse> toSearchTrendResponses(List<SearchTrendCriteria> searchTrendCriterias) {
-        List<SearchTrendResponse> searchTrendRespons = new ArrayList<>();
+    private List<TrendResponse> toSearchTrendResponses(List<TrendCriteria> trendCriterias) {
+        List<TrendResponse> searchTrendRespons = new ArrayList<>();
 
-        for(SearchTrendCriteria searchTrendCriteria : searchTrendCriterias){
-            SearchTrendResponse searchTrendResponse = new SearchTrendResponse();
-            searchTrendResponse.setKeyword(searchTrendCriteria.getKeyword());
-            searchTrendResponse.setCount(searchTrendCriteria.getCount());
-            searchTrendRespons.add(searchTrendResponse);
+        for(TrendCriteria trendCriteria : trendCriterias){
+            TrendResponse trendResponse = new TrendResponse();
+            trendResponse.setKeyword(trendCriteria.getKeyword());
+            trendResponse.setCount(trendCriteria.getCount());
+            searchTrendRespons.add(trendResponse);
         }
 
         return searchTrendRespons;

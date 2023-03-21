@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SearchTrendResponse {
+public class TrendResponse {
     private String keyword;
     private Integer count;
 }

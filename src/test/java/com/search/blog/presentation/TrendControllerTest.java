@@ -28,7 +28,7 @@ public class TrendControllerTest {
     TrendController trendController;
 
     @Autowired
-    KakaoController searchBlogController;
+    KakaoBlogController searchBlogController;
 
     private MockMvc mockMvc;
 

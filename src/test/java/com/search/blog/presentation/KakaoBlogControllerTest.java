@@ -22,10 +22,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Rollback(false)
-public class KakaoControllerTest {
+public class KakaoBlogControllerTest {
 
     @Autowired
-    KakaoController searchBlogController;
+    KakaoBlogController searchBlogController;
 
     private MockMvc mockMvc;
 

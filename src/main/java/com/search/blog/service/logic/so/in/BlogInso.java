@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class SearchBlogInso {
+public class BlogInso {
     String keyword;
     String sort;
     Integer page;

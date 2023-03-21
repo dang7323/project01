@@ -22,10 +22,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Rollback(false)
-public class NaverControllerTest {
+public class NaverBlogControllerTest {
 
     @Autowired
-    NaverController naverController;
+    NaverBlogController naverBlogController;
 
     private MockMvc mockMvc;
 
@@ -35,7 +35,7 @@ public class NaverControllerTest {
 
     @Before
     public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(naverController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(naverBlogController).build();
     }
 
     @Test

@@ -3,13 +3,16 @@ package com.search.blog.service.logic;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.search.blog.service.logic.so.in.SearchBlogInso;
-import com.search.blog.service.logic.so.out.SearchBlogOutso;
+import com.search.blog.service.logic.so.in.BlogInso;
+import com.search.blog.service.logic.so.out.BlogOutso;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,30 +25,30 @@ import static com.search.blog.code.Constants.*;
 
 @Slf4j
 @Service
-public class NaverServiceImpl implements NaverService {
+public class NaverBlogServiceImpl implements NaverBlogService {
 
     // 네이버 검색 API
     @Override
-    public List<SearchBlogOutso> getSearchNaverBlog(SearchBlogInso searchBlogInso) {
+    public List<BlogOutso> getSearchNaverBlog(BlogInso blogInso) {
         String clientId = CLIENT_ID; //애플리케이션 클라이언트 아이디
         String clientSecret = CLIENT_SECRET; //애플리케이션 클라이언트 시크릿
 
         String text = null;
         try {
-            text = URLEncoder.encode(searchBlogInso.getKeyword(), "UTF-8");
+            text = URLEncoder.encode(blogInso.getKeyword(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("검색어 인코딩 실패", e);
         }
 
         String apiURL = OPEN_API_NAVER + text;// JSON 결과
-        if(searchBlogInso.getSize() != null){
-            apiURL += "&display=" + searchBlogInso.getSize();
+        if(blogInso.getSize() != null){
+            apiURL += "&display=" + blogInso.getSize();
         }
-        if(searchBlogInso.getPage() != null){
-            apiURL += "&start=" + searchBlogInso.getPage();
+        if(blogInso.getPage() != null){
+            apiURL += "&start=" + blogInso.getPage();
         }
-        if(searchBlogInso.getSort() != null){
-            apiURL += "&sort=" + searchBlogInso.getSort();
+        if(blogInso.getSort() != null){
+            apiURL += "&sort=" + blogInso.getSort();
         }
 
         log.info("Naver Api uri : {}", apiURL);
@@ -58,7 +61,7 @@ public class NaverServiceImpl implements NaverService {
 
         log.info("Naver Api result : {}", responseBody);
 
-        List<SearchBlogOutso> searchBlogServiceOuts = fromNaverJSONtoSearchBlogOutsos(responseBody);
+        List<BlogOutso> searchBlogServiceOuts = fromNaverJSONtoSearchBlogOutsos(responseBody);
 
         return searchBlogServiceOuts;
     }
@@ -119,14 +122,14 @@ public class NaverServiceImpl implements NaverService {
 
 
     @Override
-    public List<SearchBlogOutso> fromNaverJSONtoSearchBlogOutsos(String result) {
+    public List<BlogOutso> fromNaverJSONtoSearchBlogOutsos(String result) {
         JsonObject jsonObj = (JsonObject) new JsonParser().parse(result);
         JsonArray jsonArr = (JsonArray) jsonObj.get("items");
-        List<SearchBlogOutso> searchBlogServiceOuts = new ArrayList<>();
+        List<BlogOutso> searchBlogServiceOuts = new ArrayList<>();
 
         for (Object arr : jsonArr) {
             JsonObject obj = (JsonObject) arr;
-            SearchBlogOutso searchBlogServiceOut = new SearchBlogOutso();
+            BlogOutso searchBlogServiceOut = new BlogOutso();
             searchBlogServiceOut.setTitle(obj.get("title").toString());
             searchBlogServiceOut.setContents(obj.get("description").toString());
             searchBlogServiceOut.setUrl(obj.get("link").toString());

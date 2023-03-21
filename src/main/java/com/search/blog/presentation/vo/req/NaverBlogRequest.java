@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public class NaverRequest {
+public class NaverBlogRequest {
     @NotBlank(message = "keyword must not be blank.")
     String keyword;
 
