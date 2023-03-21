@@ -1,5 +1,8 @@
 ## Jar 다운로드 링크
-> https://drive.google.com/file/d/1U3_Ya30oeRZXbYIF2HgMV9RFIrRZyUH6/view?usp=sharing
+> https://drive.google.com/file/d/1RcFtlX0i7qZSlEf2YFhqeIGtDc3NqFLY/view?usp=sharing
+
+## Git 주소
+> https://github.com/dang7323/project01
 
 ## 빌드
 > gradlew build

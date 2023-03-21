@@ -104,8 +104,8 @@ public class NaverBlogServiceImpl implements NaverBlogService {
         }
     }
 
-    private static String readBody(InputStream body) {
-        InputStreamReader streamReader = new InputStreamReader(body);
+    private static String readBody(InputStream body) throws UnsupportedEncodingException {
+        InputStreamReader streamReader = new InputStreamReader(body, "UTF-8");
 
 
         try (BufferedReader lineReader = new BufferedReader(streamReader)) {
