@@ -7,15 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface SearchBlogService {
+public interface KakaoService {
     List<SearchBlogOutso> getSearchKakaoBlog(SearchBlogInso searchBlogInso);
 
-    List<SearchBlogOutso> getSearchNaverBlog(SearchBlogInso searchBlogInso);
-
-    void saveKeyword(SearchBlogInso searchBlogInso);
-
     List<SearchBlogOutso> fromKakaoJSONtoSearchBlogOutsos(String result);
-
-    List<SearchBlogOutso> fromNaverJSONtoSearchBlogOutsos(String result);
-
 }

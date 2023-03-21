@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public class SearchBlogRequest {
+public class KakaoRequest {
     @NotBlank(message = "keyword must not be blank.")
     String keyword;
 

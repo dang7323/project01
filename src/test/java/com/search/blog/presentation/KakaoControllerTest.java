@@ -22,10 +22,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Rollback(false)
-public class SearchBlogControllerTest {
+public class KakaoControllerTest {
 
     @Autowired
-    SearchBlogController searchBlogController;
+    KakaoController searchBlogController;
 
     private MockMvc mockMvc;
 
@@ -40,7 +40,7 @@ public class SearchBlogControllerTest {
 
     @Test
     public void testUserController_Return200() throws Exception {
-        mockMvc.perform(get("/searchblog").param("keyword", "IU").param("size", "10")
+        mockMvc.perform(get("/kakao").param("keyword", "IU").param("size", "10")
                 .contentType(contentType))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", equalTo(10)))
@@ -49,7 +49,7 @@ public class SearchBlogControllerTest {
 
     @Test
     public void testUserController_WithEmptyKeyword_Return400() throws Exception {
-        mockMvc.perform(get("/searchblog").param("keyword", "").param("size", "10")
+        mockMvc.perform(get("/kakao").param("keyword", "").param("size", "10")
                         .contentType(contentType))
                 .andExpect(status().isBadRequest())
                 .andDo(print());

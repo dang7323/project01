@@ -22,13 +22,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Rollback(false)
-public class SearchTrendControllerTest {
+public class TrendControllerTest {
 
     @Autowired
-    SearchTrendController searchTrendController;
+    TrendController trendController;
 
     @Autowired
-    SearchBlogController searchBlogController;
+    KakaoController searchBlogController;
 
     private MockMvc mockMvc;
 
@@ -41,17 +41,17 @@ public class SearchTrendControllerTest {
 
     @Before
     public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(searchTrendController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(trendController).build();
         mockMvcSearchBlog = MockMvcBuilders.standaloneSetup(searchBlogController).build();
     }
 
     @Test
     public void searchtrend() throws Exception {
-        mockMvcSearchBlog.perform(get("/searchblog").param("keyword", "IU").param("size", "10"));
-        mockMvcSearchBlog.perform(get("/searchblog").param("keyword", "IU").param("size", "10"));
-        mockMvcSearchBlog.perform(get("/searchblog").param("keyword", "BTS").param("size", "10"));
+        mockMvcSearchBlog.perform(get("/kakao").param("keyword", "IU").param("size", "10"));
+        mockMvcSearchBlog.perform(get("/kakao").param("keyword", "IU").param("size", "10"));
+        mockMvcSearchBlog.perform(get("/kakao").param("keyword", "BTS").param("size", "10"));
 
-        mockMvc.perform(get("/searchtrend").contentType(contentType))
+        mockMvc.perform(get("/trend").contentType(contentType))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", equalTo(2)))
                 .andExpect(jsonPath("$.[0].count", equalTo(2)))
