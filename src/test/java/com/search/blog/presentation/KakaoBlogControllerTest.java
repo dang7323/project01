@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class KakaoBlogControllerTest {
 
     @Autowired
-    KakaoBlogController searchBlogController;
+    KakaoBlogController kakaoBlogController;
 
     private MockMvc mockMvc;
 
@@ -35,7 +35,7 @@ public class KakaoBlogControllerTest {
 
     @Before
     public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(searchBlogController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(kakaoBlogController).build();
     }
 
     @Test
